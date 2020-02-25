@@ -1,0 +1,2 @@
+### Swiper component for react.
+

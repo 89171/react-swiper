@@ -1,0 +1,33 @@
+/* slider start */
+.slider_transition{
+    transition: transform .3s
+}
+.slider_wrapper {
+    position: relative;
+    width:100%;
+    overflow: hidden;
+}
+.slider_item_wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.slider_item {
+    width: 50%;
+    height: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* slider end */
+
+
+
+.package_car_img {
+    width: 70%;
+    height: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
