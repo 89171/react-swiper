@@ -17,6 +17,18 @@ function App() {
       </div>
     )
   }
+  function renderFullWidthItem(item,index){
+    return (
+      <div className="package-car-img" style={{backgroundColor:colorSource[index],height:'160px'}}>
+        {
+          `${index}-${item}`
+        }
+      </div>
+    )
+  }
+  function itemClick(item,index){
+    alert(index)
+  }
   return (
     <div className="App">
     <h3>width:25%,defaultIndex:0</h3>
@@ -30,7 +42,12 @@ function App() {
         prevClass="normal"
         activeClass="active"
         onSlide={onSlide}
+        needPadding={false}
+        clickTrigger={false}
         renderItem={renderItem}
+        itemClick={itemClick}
+        needPagination={false}
+
       />
       <br/>
       <h3>width:50%,defaultIndex:0</h3>
@@ -45,6 +62,8 @@ function App() {
         activeClass="active"
         onSlide={onSlide}
         renderItem={renderItem}
+        itemClick={itemClick}
+        needPagination={false}
       />
       <br/>
       <h3>width:100%,defaultIndex:1</h3>
@@ -58,7 +77,12 @@ function App() {
         prevClass="normal"
         activeClass="active"
         onSlide={onSlide}
-        renderItem={renderItem}
+        renderItem={renderFullWidthItem}
+        itemClick={itemClick}
+        needPagination={true}
+        paginationWrapper=""
+        paginationPrevClass=""
+        paginationActiveClass=""
       />
     </div>
   );

@@ -19,4 +19,27 @@
     align-items: center;
     justify-content: center;
 }
+.swiper-pagination {
+    position: absolute;
+    text-align: center;
+    transition: .3s opacity;
+    transform: translate3d(0,0,0);
+    z-index: 10;
+    width:100%;
+    bottom:10px;
+    text-align: center;
+}
+.swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 100%;
+    background: #000;
+    opacity: .2;
+    margin: 0 3px;
+}
+.paginationActive{
+    background-color: #438fee;
+    opacity: 1
+}
 /* slider end */

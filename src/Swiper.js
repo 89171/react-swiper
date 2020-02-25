@@ -54,18 +54,22 @@ export default class Slider extends PureComponent{
         //点击切换到指定index
         if (index === this.state.selectedIndex) return;
         this.moveToIndex(index);
+        
     }
     moveToIndex(index,force) {
         //force强制跳转，当拖动部分距离后松开，不满足跳转条件需要回到原有位置
         //跳转到index位置
-        const { dataList } = this.props,
+        const { dataList, needPadding } = this.props,
             {selectedIndex} = this.state;
         let tempIndex = index < 0 ? 0 : index;
+        // let padding = needPadding ? 0 : this.itemWidth * (100 - this.defaultWidth) / 200
+        let padding = 0;
+        console.log(this.itemWidth,padding)
         tempIndex =
             tempIndex > dataList.length - 1 ? dataList.length - 1 : tempIndex;
         if (tempIndex === selectedIndex && !force)
             return;
-            this.slideWrapper.style.transform = `translate3d(-${tempIndex * this.itemWidth}px,0,0)`;
+            this.slideWrapper.style.transform = `translate3d(-${tempIndex * this.itemWidth - padding}px,0,0)`;
         this.setState({
             selectedIndex: tempIndex
         });
@@ -130,9 +134,16 @@ export default class Slider extends PureComponent{
             renderItem,
             wrapperClass="",
             itemClass="",
+            needPadding=true,
             itemStyle={},
             activeClass="",
-            prevClass="" 
+            prevClass="",
+            itemClick,
+            clickTrigger=true,
+            paginationWrapper="",
+            paginationPrevClass="",
+            paginationActiveClass="",
+            needPagination=false
         } = this.props,
             { 
                 selectedIndex 
@@ -156,13 +167,14 @@ export default class Slider extends PureComponent{
                             <div
                                 key={item.id || index}
                                 onClick={() =>{
-                                    selectedIndex !== index &&
-                                    this.selectItem(item, index)}
-                                }
+                                    selectedIndex !== index && clickTrigger &&
+                                    this.selectItem(item, index);
+                                    itemClick && itemClick(item, index)
+                                }}
                                 className={ `slider_item ${itemClass} ${selectedIndex !== index?prevClass:activeClass}` }
                                 style={{
-                                    marginLeft: index === 0 ? `${(100-this.defaultWidth)/2}%` : '0%',
-                                    marginRight: index === dataList.length - 1 ?
+                                    marginLeft: (needPadding && index === 0) ? `${(100-this.defaultWidth)/2}%` : '0%',
+                                    marginRight: (needPadding && index === dataList.length - 1) ?
                                         `${(100-this.defaultWidth)/2}%`
                                         : '0%',
                                     width: `${this.defaultWidth}%`|| '50%',
@@ -175,6 +187,15 @@ export default class Slider extends PureComponent{
                             </div>
                         );
                     })}
+                </div>
+                <div className={`swiper-pagination ${paginationWrapper}`}>
+                    {
+                        needPagination && dataList.map((item, index) => {
+                            return (
+                                <span key={item.id || index} className={`swiper-pagination-bullet ${selectedIndex !== index?paginationPrevClass:(paginationActiveClass || 'paginationActive')}`}></span>
+                            );
+                        })
+                    }
                 </div>
             </div>
         )

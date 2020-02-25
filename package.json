@@ -1,12 +1,11 @@
 {
-  "name": "react-swiper",
+  "name": "react-swiper-lite",
   "version": "0.1.0",
   "main": "src/swiper.js",
   "style": "src/swiper.css",
   "dependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.4.0",
     "throttle-debounce": "^2.1.0"
   },
   "scripts": {
@@ -38,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-scripts": "^3.4.0"
   }
 }
