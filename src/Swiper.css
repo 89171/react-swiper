@@ -12,7 +12,6 @@
     flex-wrap: nowrap;
 }
 .slider_item {
-    width: 50%;
     height: 100%;
     flex-grow: 0;
     flex-shrink: 0;
@@ -21,13 +20,3 @@
     justify-content: center;
 }
 /* slider end */
-
-
-
-.package_car_img {
-    width: 70%;
-    height: 80px;
-    background-size: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-  }

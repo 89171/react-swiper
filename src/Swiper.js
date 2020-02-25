@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { throttle } from 'throttle-debounce';
-import './Slider.css';
+import './Swiper.css';
 
-export default class Slider extends Component{
+export default class Slider extends PureComponent{
     constructor(props){
         super(props);
         this.state = {
@@ -128,7 +128,8 @@ export default class Slider extends Component{
         const { 
             dataList=[],
             renderItem,
-            className="",
+            wrapperClass="",
+            itemClass="",
             itemStyle={},
             activeClass="",
             prevClass="" 
@@ -148,18 +149,17 @@ export default class Slider extends Component{
             >
                 <div
                     ref={ref => (this.slideWrapper = ref)}
-                    className={`slider_item_wrapper slider_transition ${className || ''}`}
+                    className={`slider_item_wrapper slider_transition ${wrapperClass || ''}`}
                 >
                     {dataList.map((item, index) => {
                         return (
                             <div
-                                key={item.id}
+                                key={item.id || index}
                                 onClick={() =>{
                                     selectedIndex !== index &&
                                     this.selectItem(item, index)}
                                 }
-                                className={ `slider_item ${selectedIndex !== index?prevClass:activeClass}` }
-                                opc={`${selectedIndex !== index ? 's' : ''}`}
+                                className={ `slider_item ${itemClass} ${selectedIndex !== index?prevClass:activeClass}` }
                                 style={{
                                     marginLeft: index === 0 ? `${(100-this.defaultWidth)/2}%` : '0%',
                                     marginRight: index === dataList.length - 1 ?

@@ -1,7 +1,8 @@
 {
   "name": "react-swiper",
   "version": "0.1.0",
-  "private": true,
+  "main": "src/swiper.js",
+  "style": "src/swiper.css",
   "dependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
