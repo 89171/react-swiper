@@ -1,5 +1,5 @@
 import React from 'react';
-import Swiper from './Swiper'
+import Swiper from './swiper'
 import './App.css'
 
 function App() {

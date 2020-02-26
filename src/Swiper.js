@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { throttle } from 'throttle-debounce';
-import './Swiper.css';
+import './swiper.css';
 
 export default class Slider extends PureComponent{
     constructor(props){
@@ -56,11 +56,16 @@ export default class Slider extends PureComponent{
         return parseInt(transStr && transStr.split(',')[0].split('(')[1]) || 0;
     }
     selectItem(item, index) {
-        if(this.touchMoved) return;
+        const { clickTrigger=true, itemClick } = this.props;
+        if(this.touchMoved || !clickTrigger) return;
+        itemClick && itemClick(item, index)
         //点击切换到指定index
         if (index === this.state.selectedIndex) return;
         this.moveToIndex(index);
         
+    }
+    getClentX(e){
+        return e.clientX ? e.clientX : (e.touches && e.touches[0] && e.touches[0].clientX)
     }
     moveToIndex(index,force) {
         //force强制跳转，当拖动部分距离后松开，不满足跳转条件需要回到原有位置
@@ -82,15 +87,16 @@ export default class Slider extends PureComponent{
         onSlide && onSlide(dataList[index],index)
     }
     handleTouchStart(e) {
-        const touchPoint = e.touches[0];
+        // const touchPoint = e.touches[0];
         this.startTransformX = this.getTransX();
-        this.moveXStart = touchPoint.clientX;
+        this.moveXStart = this.getClentX(e);
         this.slideWrapper.classList.remove('slider_transition')
     }
     handleTouchMove = throttle(10,(e) => {
-        const touchPoint = e.touches[0],
-        moveXStart = this.moveXStart;
-        this.moveXEnd = touchPoint.clientX;
+        if(!this.moveXStart) return;
+        // const touchPoint = e.touches[0],
+        const moveXStart = this.moveXStart;
+        this.moveXEnd = this.getClentX(e);
         // 拖动
         let moveSpace = this.moveXEnd - moveXStart;
         if(Math.abs(moveSpace || 0) > 5){
@@ -162,6 +168,13 @@ export default class Slider extends PureComponent{
                 }}
                 onTouchEnd={this.handleTouchEnd}
                 onTouchCancel={this.handleTouchCancel}
+                onMouseDown={this.handleTouchStart}
+                onMouseMove={(e)=>{
+                    e.persist();
+                    this.handleTouchMove(e)
+                }}
+                onMouseUp={this.handleTouchEnd}
+                // onMouseOut={this.handleTouchCancel}
             >
                 <div
                     ref={ref => (this.slideWrapper = ref)}
@@ -172,9 +185,7 @@ export default class Slider extends PureComponent{
                             <div
                                 key={item.id || index}
                                 onClick={() =>{
-                                    selectedIndex !== index && clickTrigger &&
                                     this.selectItem(item, index);
-                                    itemClick && itemClick(item, index)
                                 }}
                                 className={ `slider_item ${itemClass} ${selectedIndex !== index?prevClass:activeClass}` }
                                 style={{

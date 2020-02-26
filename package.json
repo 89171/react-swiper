@@ -1,8 +1,8 @@
 {
   "name": "react-swiper-lite",
   "version": "0.1.2",
-  "main": "src/Swiper.js",
-  "style": "src/Swiper.css",
+  "main": "src/swiper.js",
+  "style": "src/swiper.css",
   "dependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
