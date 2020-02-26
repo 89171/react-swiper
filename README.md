@@ -1,11 +1,12 @@
 ### Swiper component for react.
 
+### [View examples](http://woleigequ.net/react-swiper/)
 
 ### 安装
 ```
 npm install --save react react-swiper-lite
 ```
-2. 使用
+### 使用
 ```
 <Swiper
     wrapperClass="wrapperClass"
