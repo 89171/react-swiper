@@ -1,16 +1,11 @@
 ### Swiper component for react.
 
-### 运行示例,localhost:3000
-```
-npm start 
-```
 
-### 基本用法
-1. 安装并引入react-swiper-lite
+### 安装
 ```
-import Swiper from 'react-swiper-lite'
+npm install --save react react-swiper-lite
 ```
-2. 设置相关参数
+2. 使用
 ```
 <Swiper
     wrapperClass="wrapperClass"
@@ -44,9 +39,30 @@ import Swiper from 'react-swiper-lite'
 - `activeClass` String 当前选中swiper元素样式
 - `onSlide` Function 点击或滑动切换到指定索引回调，传入两个参数item,index
 - `renderItem` Function 渲染单个swiper子元素布局, 传入两个参数item,index
-- `clickTrigger` Boolean 默认为true,点击是否触发切换到改swiper元素
-- `itemClick` Function 点击swiper元素回调,传入两个参数item,index。存在该属性则点击不再跳转被点击swiper
+- `clickTrigger` Boolean 默认为true,点击是否触发切换到该swiper元素(子元素宽度小于100%时可点击切换索引)
+- `itemClick` Function 点击swiper元素回调,传入两个参数item,index
 - `needPagination` Boolean 默认为false,是否需要分页指示器
 - `paginationWrapper` String 指示器父元素样式，可以通过text-align设置指示器位置
 - `paginationPrevClass` String 未选中指示器元素样式
 - `paginationActiveClass` String 当前选中索引指示器样式
+
+
+### 运行示例
+<!-- 
+Run the example 
+clone or download source code
+install depedences
+-->
+- 克隆或下载代码
+```
+git clone https://github.com/joakimbeng/react-swiper
+```
+- 安装依赖
+```
+cd react-swiper
+npm install
+```
+- 运行npm script
+```
+npm start 
+```

@@ -13,9 +13,10 @@ export default class Slider extends PureComponent{
         this.moveXEnd = 0;
         this.startTransformX = 0;
         this.defaultWidth = parseInt(props.itemWidth) || 50
-    }
-    static jumpToIndex(index){
-        this.moveToIndex(index)
+        this.handleTouchStart = this.handleTouchStart.bind(this);
+        this.handleTouchMove = this.handleTouchMove.bind(this);
+        this.handleTouchEnd = this.handleTouchEnd.bind(this);
+        this.handleTouchCancel = this.handleTouchCancel.bind(this);
     }
     componentDidMount() {
         const { selectedIndex } = this.state;
@@ -35,13 +36,18 @@ export default class Slider extends PureComponent{
     }
     boundXValue(value) {
         //计算边界
-        const { dataList } = this.props;
+        const { dataList,needPadding=true } = this.props;
         //获取transformX 距离
         let result = value > 0 ? 0 : value;
         result =
             result < this.itemWidth * (1 - dataList.length)
                 ? this.itemWidth * (1 - dataList.length)
                 : result;
+        if(!needPadding){
+            const wrapperWidth = this.itemWidth/this.defaultWidth*100;
+            const swiperWidth = dataList.length * this.itemWidth;
+            result = Math.abs(result) >= (swiperWidth - wrapperWidth) ? (wrapperWidth - swiperWidth) : result
+        }
         return result;
     }
     getTransX() {
@@ -59,23 +65,23 @@ export default class Slider extends PureComponent{
     moveToIndex(index,force) {
         //force强制跳转，当拖动部分距离后松开，不满足跳转条件需要回到原有位置
         //跳转到index位置
-        const { dataList, needPadding } = this.props,
+        const { dataList, needPadding, onSlide } = this.props,
             {selectedIndex} = this.state;
         let tempIndex = index < 0 ? 0 : index;
-        // let padding = needPadding ? 0 : this.itemWidth * (100 - this.defaultWidth) / 200
-        let padding = 0;
-        console.log(this.itemWidth,padding)
         tempIndex =
             tempIndex > dataList.length - 1 ? dataList.length - 1 : tempIndex;
-        if (tempIndex === selectedIndex && !force)
-            return;
-            this.slideWrapper.style.transform = `translate3d(-${tempIndex * this.itemWidth - padding}px,0,0)`;
+        if (tempIndex === selectedIndex && !force) return;
+        let currentTrans = -tempIndex * this.itemWidth;
+        if(!needPadding){
+            currentTrans = this.boundXValue(currentTrans)
+        }
+        this.slideWrapper.style.transform = `translate3d(${currentTrans}px,0,0)`;
         this.setState({
             selectedIndex: tempIndex
         });
-        this.props.onSlide(dataList[index],index)
+        onSlide && onSlide(dataList[index],index)
     }
-    handleTouchStart = e => {
+    handleTouchStart(e) {
         const touchPoint = e.touches[0];
         this.startTransformX = this.getTransX();
         this.moveXStart = touchPoint.clientX;
@@ -83,7 +89,6 @@ export default class Slider extends PureComponent{
     }
     handleTouchMove = throttle(10,(e) => {
         const touchPoint = e.touches[0],
-        // moveXEnd = this.moveXEnd,
         moveXStart = this.moveXStart;
         this.moveXEnd = touchPoint.clientX;
         // 拖动
@@ -94,7 +99,7 @@ export default class Slider extends PureComponent{
         let Xspace = parseInt(parseInt(this.startTransformX) + moveSpace)
         this.slideWrapper.style.transform = `translate3d(${this.boundXValue(Xspace)}px,0,0)`
     })
-    handleTouchEnd = e => {
+    handleTouchEnd(e) {
         this.slideWrapper.classList.add('slider_transition')
         setTimeout(()=>{
             const moveSpace = this.moveXEnd - this.moveXStart,
@@ -125,7 +130,7 @@ export default class Slider extends PureComponent{
             this.moveXEnd = this.moveXStart = 0;
         },30)
     }
-    handleTouchCancel = e => {
+    handleTouchCancel(e){
         this.moveToIndex(this.state.selectedIndex,true);
     }
     render(){
