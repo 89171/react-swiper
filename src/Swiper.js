@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { throttle } from 'throttle-debounce';
 import './swiper.css';
+import PropTypes from 'prop-types'
 
 export default class Slider extends PureComponent{
     constructor(props){
@@ -14,7 +15,7 @@ export default class Slider extends PureComponent{
         this.startTransformX = 0;
         this.defaultWidth = parseInt(props.itemWidth) || 50
         this.handleTouchStart = this.handleTouchStart.bind(this);
-        this.handleTouchMove = this.handleTouchMove.bind(this);
+        this.handleTouchMove = throttle(10,this.handleTouchMove.bind(this));
         this.handleTouchEnd = this.handleTouchEnd.bind(this);
         this.handleTouchCancel = this.handleTouchCancel.bind(this);
     }
@@ -28,6 +29,11 @@ export default class Slider extends PureComponent{
         if (selectedIndex !== 0) {
             this.slideWrapper.style.transform = `translate3d(-${selectedIndex * this.itemWidth}px,0,0)`;
         }
+        window.addEventListener("resize", throttle(10,()=>{
+            const { selectedIndex } = this.state;
+            this.itemWidth = this.slideWrapper.getBoundingClientRect().width * this.defaultWidth /100;
+            this.slideWrapper.style.transform = `translate3d(-${selectedIndex * this.itemWidth}px,0,0)`;
+        }))
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.curIdx !== this.state.selectedIndex){
@@ -92,7 +98,7 @@ export default class Slider extends PureComponent{
         this.moveXStart = this.getClentX(e);
         this.slideWrapper.classList.remove('slider_transition')
     }
-    handleTouchMove = throttle(10,(e) => {
+    handleTouchMove(e) {
         if(!this.moveXStart) return;
         // const touchPoint = e.touches[0],
         const moveXStart = this.moveXStart;
@@ -104,7 +110,7 @@ export default class Slider extends PureComponent{
         }
         let Xspace = parseInt(parseInt(this.startTransformX) + moveSpace)
         this.slideWrapper.style.transform = `translate3d(${this.boundXValue(Xspace)}px,0,0)`
-    })
+    }
     handleTouchEnd(e) {
         this.slideWrapper.classList.add('slider_transition')
         setTimeout(()=>{

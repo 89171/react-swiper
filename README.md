@@ -67,3 +67,4 @@ npm install
 ```
 npm start 
 ```
+- TODO: resize

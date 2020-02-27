@@ -1,16 +1,17 @@
 {
   "name": "react-swiper-lite",
-  "version": "0.1.2",
-  "main": "src/swiper.js",
-  "style": "src/swiper.css",
+  "version": "0.1.3",
+  "main": "dist/index.js",
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "throttle-debounce": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "webpack --config webpack.prod.js",
+    "example-build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,6 +40,17 @@
     ]
   },
   "devDependencies": {
-    "react-scripts": "^3.4.0"
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.2",
+    "react-scripts": "^3.4.0",
+    "style-loader": "^1.1.3",
+    "url-loader": "^3.0.0",
+    "webpack-merge": "^4.2.2",
+    "webpack": "4.41.5",
+    "webpack-cli": "^3.3.11"
   }
 }
