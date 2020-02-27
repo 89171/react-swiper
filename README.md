@@ -67,4 +67,8 @@ npm install
 ```
 npm start 
 ```
-- TODO: resize
+### build
+如果有需要对代码进行修改，可以使用项目中的wenpack配置重新构建，或者提交代码，一起完善此组件。
+```
+npm run build  // dist/index.js
+```
