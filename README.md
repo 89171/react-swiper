@@ -49,14 +49,9 @@ npm install --save react react-swiper-lite
 
 
 ### 运行示例
-<!-- 
-Run the example 
-clone or download source code
-install depedences
--->
 - 克隆或下载代码
 ```
-git clone https://github.com/joakimbeng/react-swiper
+git clone https://github.com/Iamxiaozhu/react-swiper.git
 ```
 - 安装依赖
 ```
@@ -68,7 +63,7 @@ npm install
 npm start 
 ```
 ### build
-如果有需要对代码进行修改，可以使用项目中的wenpack配置重新构建，或者提交代码，一起完善此组件。
+如果有需要对代码进行修改，可以使用项目中的webpack配置重新构建，或者提交代码，一起完善此组件。
 ```
 npm run build  // dist/index.js
 ```
