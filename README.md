@@ -4,7 +4,7 @@
 
 ### 安装
 ```
-npm install --save react react-swiper-lite
+npm install --save react-swiper-lite
 ```
 ### 引入
 #### react项目中引入
