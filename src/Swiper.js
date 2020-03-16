@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { throttle } from 'throttle-debounce';
 import './swiper.css';
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 export default class Slider extends PureComponent{
     constructor(props){
@@ -180,7 +180,7 @@ export default class Slider extends PureComponent{
                     this.handleTouchMove(e)
                 }}
                 onMouseUp={this.handleTouchEnd}
-                // onMouseOut={this.handleTouchCancel}
+                onMouseOut={this.handleTouchCancel}
             >
                 <div
                     ref={ref => (this.slideWrapper = ref)}

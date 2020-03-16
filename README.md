@@ -6,6 +6,18 @@
 ```
 npm install --save react react-swiper-lite
 ```
+### 引入
+#### react项目中引入
+```
+import Swiper from 'react-swiper-lite'
+```
+#### nextjs项目中引入
+```
+import dynamic from 'next/dynamic'
+const Swiper = dynamic(
+    import('react-swiper-lite')
+)
+```
 ### 使用
 ```
 <Swiper
