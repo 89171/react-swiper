@@ -1,7 +1,8 @@
-./node_modules/
-./src
+node_modules/
+src
+build/
 .babelrc
 .gitignore
-./webpack.comon.js
-./webpack.prod.js
+webpack.comon.js
+webpack.prod.js
 
