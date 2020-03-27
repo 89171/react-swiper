@@ -29,7 +29,11 @@ function App() {
   function renderItem1(item,index){
     return(
       <img src={item} className="item1" />
-      // <div className="package-car-img" style={{height:'auto',backgroundImage:`url(${item})`}}></div>
+     )
+  }
+  function renderItem3(item,index){
+    return(
+      <div style={{height:'200px',width:'100%',backgroundColor:'blue',backgroundColor:colorSource[index],marginRight:'12px'}}></div>
      )
   }
   function renderItem2(item,index){
@@ -72,6 +76,18 @@ function App() {
         paginationActiveClass=""
       />
       <br />
+      <h4>width:91.46%,defaultIndex:0,needPadding:false</h4>
+      <Swiper
+        wrapperClass="wrapperClass ml10"
+        itemWidth="91.46%"
+        curIdx={0}
+        dataList={dataSource}
+        needPadding={false}
+        clickTrigger={false}
+        renderItem={renderItem3}
+        itemClick={(item)=>alert(item)}
+      />
+      <br />
       <h4>width:79%,defaultIndex:0</h4>
       <Swiper
         wrapperClass="wrapperClass"
@@ -103,7 +119,7 @@ function App() {
       <h4>width:40%,defaultIndex:0,needPadding:false</h4>
       <h3 style={{textAlign:'center'}}>—— 新品上市 ——</h3>
       <Swiper
-        wrapperClass="wrapperClass"
+        wrapperClass="wrapperClass ml10"
         itemWidth="40%"
         curIdx={0}
         dataList={dataSource1}

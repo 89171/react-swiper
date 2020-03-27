@@ -28,6 +28,7 @@
     width:100%;
     bottom:10px;
     text-align: center;
+    pointer-events: none;
 }
 .swiper-pagination-bullet {
     width: 8px;

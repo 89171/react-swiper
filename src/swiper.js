@@ -25,15 +25,19 @@ export default class Slider extends PureComponent{
             return;
         }
         this.itemWidth = this.slideWrapper.getBoundingClientRect().width * this.defaultWidth /100;
-        //处理默认Index
-        if (selectedIndex !== 0) {
-            this.slideWrapper.style.transform = `translate3d(-${selectedIndex * this.itemWidth}px,0,0)`;
-        }
-        window.addEventListener("resize", throttle(10,()=>{
+        window.addEventListener("resize", throttle(100,()=>{
             const { selectedIndex } = this.state;
             this.itemWidth = this.slideWrapper.getBoundingClientRect().width * this.defaultWidth /100;
             this.slideWrapper.style.transform = `translate3d(-${selectedIndex * this.itemWidth}px,0,0)`;
         }))
+        //处理默认Index
+        if (selectedIndex !== 0) {
+            const { dataList=[] } = this.props;
+            if(dataList.length === 0) return;
+            const maxIndex = selectedIndex > (dataList.length - 1) ? dataList.length - 1 : selectedIndex
+            console.log(maxIndex,this.itemWidth,this.boundXValue(maxIndex * this.itemWidth))
+            this.slideWrapper.style.transform = `translate3d(${this.boundXValue(-1*maxIndex * this.itemWidth)}px,0,0)`;
+        }
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.curIdx !== this.state.selectedIndex){
@@ -52,6 +56,7 @@ export default class Slider extends PureComponent{
         if(!needPadding){
             const wrapperWidth = this.itemWidth/this.defaultWidth*100;
             const swiperWidth = dataList.length * this.itemWidth;
+            const gap = 0;
             result = Math.abs(result) >= (swiperWidth - wrapperWidth) ? (wrapperWidth - swiperWidth) : result
         }
         return result;
@@ -100,7 +105,6 @@ export default class Slider extends PureComponent{
     }
     handleTouchMove(e) {
         if(!this.moveXStart) return;
-        // const touchPoint = e.touches[0],
         const moveXStart = this.moveXStart;
         this.moveXEnd = this.getClentX(e);
         // 拖动
@@ -180,7 +184,7 @@ export default class Slider extends PureComponent{
                     this.handleTouchMove(e)
                 }}
                 onMouseUp={this.handleTouchEnd}
-                onMouseOut={this.handleTouchCancel}
+                onMouseOut={this.handleTouchEnd}
             >
                 <div
                     ref={ref => (this.slideWrapper = ref)}
