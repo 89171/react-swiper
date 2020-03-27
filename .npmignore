@@ -1,8 +1,9 @@
 node_modules/
-src
+src/
 build/
+public/
 .babelrc
 .gitignore
-webpack.comon.js
+webpack.common.js
 webpack.prod.js
 
