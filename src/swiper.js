@@ -25,7 +25,7 @@ export default class Slider extends PureComponent{
             return;
         }
         this.itemWidth = this.slideWrapper.getBoundingClientRect().width * this.defaultWidth /100;
-        window.addEventListener("resize", throttle(100,()=>{
+        window.addEventListener("resize", throttle(200,()=>{
             const { selectedIndex } = this.state;
             this.itemWidth = this.slideWrapper.getBoundingClientRect().width * this.defaultWidth /100;
             this.slideWrapper.style.transform = `translate3d(-${selectedIndex * this.itemWidth}px,0,0)`;
@@ -78,6 +78,9 @@ export default class Slider extends PureComponent{
     getClentX(e){
         return e.clientX ? e.clientX : (e.touches && e.touches[0] && e.touches[0].clientX)
     }
+    getClentY(e){
+        return e.clientY ? e.clientY : (e.touches && e.touches[0] && e.touches[0].clientY)
+    }
     moveToIndex(index,force) {
         //force强制跳转，当拖动部分距离后松开，不满足跳转条件需要回到原有位置
         //跳转到index位置
@@ -101,15 +104,22 @@ export default class Slider extends PureComponent{
         // const touchPoint = e.touches[0];
         this.startTransformX = this.getTransX();
         this.moveXStart = this.getClentX(e);
+        this.moveYStart = this.getClentY(e);
         this.slideWrapper.classList.remove('slider_transition')
     }
     handleTouchMove(e) {
         if(!this.moveXStart) return;
         const moveXStart = this.moveXStart;
+        const moveYStart = this.moveYStart;
         this.moveXEnd = this.getClentX(e);
+        this.moveYEnd = this.getClentY(e);
         // 拖动
         let moveSpace = this.moveXEnd - moveXStart;
-        if(Math.abs(moveSpace || 0) > 5){
+        let moveYSpace = this.moveYEnd - moveYStart;
+        if(Math.abs(moveYSpace || 0) > Math.abs(moveSpace || 0)){ //上下滑动
+            return
+        }
+        if(Math.abs(moveSpace || 0) > 10){
             this.touchMoved = true;
         }
         let Xspace = parseInt(parseInt(this.startTransformX) + moveSpace)

@@ -1,6 +1,6 @@
 {
   "name": "react-swiper-lite",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "main": "dist/index.js",
   "dependencies": {
     "prop-types": "^15.7.2",
