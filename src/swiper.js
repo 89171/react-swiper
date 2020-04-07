@@ -119,8 +119,11 @@ export default class Slider extends PureComponent{
         if(Math.abs(moveYSpace || 0) > Math.abs(moveSpace || 0)){ //上下滑动
             return
         }
-        if(Math.abs(moveSpace || 0) > 10){
+        if(Math.abs(moveSpace || 0) > 5){
             this.touchMoved = true;
+        } else {
+            // 滑动距离小于5,判定为点击误触,因为用户点击屏幕,触摸屏幕区域一般为区域而非单个像素点
+            return
         }
         let Xspace = parseInt(parseInt(this.startTransformX) + moveSpace)
         this.slideWrapper.style.transform = `translate3d(${this.boundXValue(Xspace)}px,0,0)`

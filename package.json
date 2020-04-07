@@ -1,9 +1,8 @@
 {
   "name": "react-swiper-lite",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "main": "dist/index.js",
   "dependencies": {
-    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "throttle-debounce": "^2.1.0"
