@@ -1,7 +1,7 @@
 ### Swiper component for react.
 
 ### [View examples](http://woleigequ.net/react-swiper/)
-![Lint](https://github.com/Iamxiaozhu/react-swiper/workflows/Lint/badge.svg?branch=master
+![Lint](https://github.com/Iamxiaozhu/react-swiper/workflows/Lint/badge.svg?branch=master)
 ### 安装
 ```
 npm install --save react-swiper-lite
