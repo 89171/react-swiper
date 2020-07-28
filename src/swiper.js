@@ -56,7 +56,6 @@ export default class Slider extends PureComponent{
         if(!needPadding){
             const wrapperWidth = this.itemWidth/this.defaultWidth*100;
             const swiperWidth = dataList.length * this.itemWidth;
-            const gap = 0;
             result = Math.abs(result) >= (swiperWidth - wrapperWidth) ? (wrapperWidth - swiperWidth) : result
         }
         return result;
