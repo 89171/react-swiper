@@ -32,8 +32,14 @@ jobs:
     - name: Install dependencies
       run: yarn install
     # Runs a single command using the runners shell
-    - name: Run Lint 
-      run: |
-        yarn lint
-        yarn format
+    - name: Run Linters 
+      uses: samuelmeuli/lint-action@v1
+      with:
+          github_token: ${{ secrets.github_token }}
+          # Enable linters
+          eslint: true
+          # prettier: true
+      # run: |
+      #   yarn lint
+      #   yarn format
 
